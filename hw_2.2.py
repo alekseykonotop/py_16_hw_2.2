@@ -23,7 +23,7 @@ def get_long_words_list(lst, x):
             long_words.append(word)
     return long_words
 
-def open_file(file_name, world_length):
+def read_file(file_name, world_length):
     with open('{0}'.format(file_name)) as f:
         data = f.read()
         all_words_in_text = data.split()  # Получили список всех слов, разбитых по пробеллом.
@@ -38,7 +38,7 @@ def run_func(file_lst):
     world_length = int(input('Укажите минимальную длину слова: '))
     for file in file_lst:
         print('Сейчас будет работать с файлом: {0}'.format(file))
-        # open_file(file, world_length)
+        # read_file(file, world_length)
 
 
 run_func(['newsafr.txt', 'newscy.txt', 'newsfr.txt', 'newsit.txt'])
