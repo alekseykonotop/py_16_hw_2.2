@@ -17,28 +17,38 @@ def get_long_words_list(lst, x):
     Возвращает новый список long_words состоящий из элементов переданного
     итеррируемого объекта lst, отвечающего условию len(элемент) > x.
     """
+
     long_words = []
     for word in lst:
         if len(word) > x:
             long_words.append(word)
     return long_words
 
-def read_file(file_name, world_length):
-    with open('{0}'.format(file_name)) as f:
-        data = f.read()
-        all_words_in_text = data.split()  # Получили список всех слов, разбитых по пробеллом.
-        long_words_list = get_long_words_list(all_words_in_text, world_length)  # Получили список элементов длинне 6 символов
+def read_file(file_name, world_length):  # Добавить определение кодировки, возможно вынести ее в отдельную функцию!
+    """Функция read_file открывает файл, декодирует е
+    го и возвращает список результат работы функции
+    get_long_words_list.
+    """
 
-        print(long_words_list)
-        print(type(long_words_list))
-        print(len(long_words_list))
+    with open('{0}'.format(file_name), 'rb') as f:
+        data = f.read()
+        result = chardet.detect(data)
+        print(result)
+        print('encoding', result['encoding'])
+        # all_words_in_text = data.split()  # Получили список всех слов, разбитых по пробеллом.
+        # return get_long_words_list(all_words_in_text, world_length)  # Получили список элементов длинне 6 символов
+
+read_file('newsafr.txt', 6)  # Отладочный принт
 
 def run_func(file_lst):
-    print('Запущена программа получения 10 самых высокочастотных слов в статьях.')
+    print('Запущена программа получения 10 самых высокочастотных слов.')
     world_length = int(input('Укажите минимальную длину слова: '))
     for file in file_lst:
-        print('Сейчас будет работать с файлом: {0}'.format(file))
-        # read_file(file, world_length)
+        print('Сейчас будем работать с файлом: {0}'.format(file))
+        long_words_list = read_file(file, world_length)  #  Присвоили переменной long_words_list массив слов длиннее world_length
+        print(long_words_list)
 
 
-run_func(['newsafr.txt', 'newscy.txt', 'newsfr.txt', 'newsit.txt'])
+
+# run_func(['newsafr.txt', 'newscy.txt', 'newsfr.txt', 'newsit.txt'])
+# run_func(['newsafr.txt'])
